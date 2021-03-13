@@ -1,6 +1,6 @@
-# GoBGP Practical Activity
+# BGP and OSPF practical activity
 ### Task description
-You have the following topology:
+You have the following topology
 
 ![Network topology](diagram.png)
 
