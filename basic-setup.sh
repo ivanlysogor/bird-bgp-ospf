@@ -2,35 +2,26 @@
 
 hostname=$(hostname)
 
-# fix DNS resolving in some cases
-echo "nameserver 192.168.4.1" >> /etc/resolv.conf
+# disable systemd-resolved to fix DNS issue
+systemctl disable systemd-resolved.service
+systemctl stop systemd-resolved
+rm -f /etc/resolv.conf
+echo 'nameserver 10.0.0.1' > /etc/resolv.conf
+
 
 # update apt cache
 apt-get update -y
 
-# install traceroute
+# install packages
 apt-get install traceroute -y
+apt-get install net-tools -y
+apt-get install bird2 -y
 
-# install gobgp
-cp /tmp/gobgpd.conf /etc
-apt-get install gobgpd -y
-systemctl stop gobgpd
-cd /tmp
-wget -q https://github.com/osrg/gobgp/releases/download/v2.15.0/gobgp_2.15.0_linux_amd64.tar.gz
-tar -xzf gobgp_2.15.0_linux_amd64.tar.gz
-cp gobgp /usr/bin
-cp gobgpd /usr/bin
-
-
-# install zebra
-apt-get install quagga-core -y
-systemctl stop zebra
-cp /tmp/zebra.conf /etc/quagga/
-mkdir /run/quagga
-chown quagga:quagga /run/quagga
-
-systemctl start zebra
-systemctl start gobgpd
+# update configs
+cat /tmp/bird.conf >> /etc/bird/bird.conf
+cat /tmp/bashrc >> ~/.bashrc
+killall -1 bird
+tail /var/log/syslog
 
 whoami
 printenv

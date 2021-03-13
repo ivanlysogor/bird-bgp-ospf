@@ -4,9 +4,9 @@ You have the following topology:
 
 ![Network topology](diagram.png)
 
-All devices has bird pre-installed.
+All devices have bird pre-installed.
 
-The customer has AS number 64512.
+The Customer has AS number 64512.
 The ISP1 has AS number 64601 and the ISP2 has AS number 64602.
 The Cloud Provider has AS number 64700.
 
@@ -34,22 +34,23 @@ Download from https://www.vagrantup.com/downloads.html and install
 cd bird-bgp-ospf
 vagrant up
 ```
-#### 4. Configure OSPF
+#### 4. Configure routing policies
 
-Configure OSPF area 0 for devices cust1-ce1, cust1-ce2 and cust1-core.
+Configure BGP routing policies to achieve required behavour.
 
 Hints:
-- you can connect to you virtual routers with command ```vagrant ssh <router-name>```
+- you can connect to your virtual routers with command ```vagrant ssh <router-name>```
 - Bird documentation available at https://bird.network.cz/
-- Zebra interface accessible via ```telnet localhost 2601``` with password ```zebra``` and enable ```zebra```
-
-#### 5. Configure BGP
-
-Configure BGP sessions and BGP policies for all devices.
+- Bird aliases (work for root user):
+  - bc - edit bird configuration file
+  - bl - show syslog tail
+  - br - send SIGHUP signal to bird daemon (reload configuration)
+- Bird console available with "birdc" command
 
 
 #### 5. Validate
-Traceroute internal interface cloud1-ce1 IP address from cust1-core interface to ensure that traffic pass through cust1-ce1 and sp1-p1 devices. Test it for opposite direction traffic too.
+
+Run traceroute between internal cust1-core IP address (192.168.11.11) and internal cloud1-ce1 IP address (172.16.100.11) to ensure that traffic goes through cust1-ce1 and sp1-p1 devices. Test it for opposite direction traffic as well.
 
 Disable sp1-p1 device and ensure that IP connectivity restored throught sp2-p1 device.
 
