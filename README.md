@@ -46,6 +46,7 @@ Hints:
   - bl - show syslog tail
   - br - send SIGHUP signal to bird daemon (reload configuration)
 - Bird console available with "birdc" command
+- Additional useful documentation can be found at https://blog.kintone.io/entry/bird and https://archive.nanog.org/meetings/nanog48/presentations/Monday/Filip_BIRD_final_N48.pdf
 
 
 #### 5. Validate

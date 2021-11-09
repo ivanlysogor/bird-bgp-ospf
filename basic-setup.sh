@@ -8,7 +8,6 @@ hostname=$(hostname)
 # rm -f /etc/resolv.conf
 # echo 'nameserver 10.0.0.1' > /etc/resolv.conf
 
-
 # update apt cache
 apt-get update -y
 
